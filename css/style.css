@@ -779,3 +779,68 @@ em{font-style:italic;color:var(--rose-gold)}
 }
 .nav-list{ gap:22px; }
 .nav-link{ font-size:.7rem; }
+
+/* NOVOS */
+
+.fillers-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.fillers-list li {
+  margin: 0;
+}
+
+.fillers-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: #6b6b6b;
+  text-decoration: none;
+  transition: color 0.3s ease, gap 0.3s ease;
+}
+
+.fillers-list a::before {
+  content: "+";
+  font-size: 0.85rem;
+  color: #b08d57; /* tom dourado — ajuste pra cor da sua marca */
+  transition: transform 0.3s ease;
+}
+
+.fillers-list a:hover {
+  color: #b08d57;
+  gap: 0.75rem; /* dá um leve "avanço" no hover */
+}
+
+.fillers-list a:hover::before {
+  transform: translateX(2px);
+}
+
+h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #b08d57; /* mesmo dourado usado no hover dos links */
+  margin: 1.2rem 0 0.5rem;
+  position: relative;
+  padding-left: 0.9rem;
+}
+
+h4::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #b08d57;
+}
