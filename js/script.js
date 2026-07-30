@@ -20,14 +20,15 @@
   /* Vídeos dos procedimentos (placeholders funcionais).
      Substitua "video" pelo arquivo real em /videos mantendo a estrutura. */
   var VIDEOS = [
-    { title: 'Harmonização Facial', desc: 'Equilíbrio de contornos e proporções do rosto.', poster: 'img/proc-harmonizacao.jpg', video: 'videos/harmonizacao.mp4' },
-    { title: 'Toxina Botulínica', desc: 'Suavização das linhas de expressão.', poster: 'img/proc-botox.jpg', video: 'videos/botox.mp4' },
-    { title: 'Preenchimento Labial', desc: 'Desenho delicado e hidratação dos lábios.', poster: 'img/proc-labial.jpg', video: 'videos/labial.mp4' },
-    { title: 'Skinbooster', desc: 'Viço, luminosidade e hidratação profunda.', poster: 'img/proc-skinbooster.jpg', video: 'videos/skinbooster.mp4' },
-    { title: 'Bioestimuladores', desc: 'Estímulo natural de colágeno.', poster: 'img/proc-bio.jpg', video: 'videos/bio.mp4' },
-    { title: 'Fios de PDO', desc: 'Efeito lifting sutil e sustentação.', poster: 'img/proc-fios.jpg', video: 'videos/fios.mp4' },
-    { title: 'Rinomodelação', desc: 'Refinamento do nariz sem cirurgia.', poster: 'img/proc-rino.jpg', video: 'videos/rino.mp4' },
-    { title: 'Lifting Facial', desc: 'Firmeza e contorno definido.', poster: 'img/proc-lifting.jpg', video: 'videos/lifting.mp4' }
+    { title: 'Titulo', desc: 'Descrição', poster: 'img/icone_videos.jpg', video: 'videos/video_0.mp4' },
+    { title: 'Titulo', desc: 'Descrição', poster: 'img/icone_videos.jpg', video: 'videos/video_01.mp4' },
+    { title: 'Titulo', desc: 'Descrição', poster: 'img/icone_videos.jpg', video: 'videos/video_02.mp4' },
+    { title: 'Titulo', desc: 'Descrição', poster: 'img/icone_videos.jpg', video: 'videos/video_03.mp4' },
+    { title: 'Titulo', desc: 'Descrição', poster: 'img/icone_videos.jpg', video: 'videos/video_04.mp4' },
+    { title: 'Titulo', desc: 'Descrição', poster: 'img/icone_videos.jpg', video: 'videos/video_05.mp4' },
+    { title: 'Titulo', desc: 'Descrição', poster: 'img/icone_videos.jpg', video: 'videos/video_06.mp4' },
+    { title: 'Titulo', desc: 'Descrição', poster: 'img/icone_videos.jpg', video: 'videos/video_07.mp4' },
+
   ];
 
   /* =======================================================
