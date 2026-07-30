@@ -299,7 +299,18 @@
         <h2>Conheça cada tratamento por dentro.</h2>
         <p>Toque em um card para assistir ao vídeo em tela cheia.</p>
       </div>
-      <div class="videos-grid" id="videosGrid"></div>
+      <div class="carousel videos-carousel reveal" id="videosCarousel" aria-roledescription="carrossel" aria-label="Vídeos dos procedimentos">
+        <div class="carousel-viewport" id="videosViewport">
+          <div class="carousel-track" id="videosTrack"></div>
+        </div>
+        <button class="carousel-btn prev" id="videosPrev" type="button" aria-label="Vídeo anterior">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="carousel-btn next" id="videosNext" type="button" aria-label="Próximo vídeo">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="carousel-dots" id="videosDots" role="tablist" aria-label="Selecionar vídeo"></div>
+      </div>
     </div>
   </section>
 
@@ -421,7 +432,7 @@
       <div class="contact-lower reveal">
         <div class="map">
           <iframe title="Localização do Instituto Ornare no mapa"
-            src="https://www.google.com/maps?q=Av+Paulista,+São+Paulo&output=embed"
+            src="https://www.google.com/maps?q=Rua+Amorim+Diniz,+60+-+Jardim+Ja%C3%BA,+S%C3%A3o+Paulo+-+SP,+03730-040&output=embed"
             loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
@@ -453,7 +464,7 @@
       <ul>
         <li><a href="https://wa.me/5511962505030" target="_blank" rel="noopener">WhatsApp</a></li>
         <li><a href="https://wa.me/5511962505030">(11) 96250-5030</a></li>
-        <li><a href="mailto:contato@institutoornare.com.br">contato@institutoornare.com.br</a></li>
+        <li><a href="mailto:institutofabiaornare@gmail.com">institutofabiaornare@gmail.com </a></li>
         <li>Rua Exemplo, 123 · UF</li>
       </ul>
     </div>

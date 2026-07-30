@@ -319,6 +319,12 @@ em{font-style:italic;color:var(--rose-gold)}
 .video-title{display:block;color:#fff;font-family:var(--serif);font-size:1.3rem;line-height:1.2}
 .video-desc{display:block;color:rgba(255,255,255,.8);font-size:.82rem;margin-top:6px;line-height:1.45}
 
+/* Carrossel de vídeos — reaproveita o padrão visual do carrossel de resultados */
+.videos-carousel .carousel-track{cursor:grab}
+.videos-carousel .carousel-track:active{cursor:grabbing}
+.videos-carousel .carousel-slide{flex:0 0 100%;padding:0 10px}
+.videos-carousel .video-card{margin:0 auto}
+
 /* ---------------------------------------------------------
    7. CARROSSEL DE RESULTADOS
    --------------------------------------------------------- */
