@@ -116,6 +116,43 @@
   $$('.reveal').forEach(observeReveal);
 
   /* =======================================================
+     TEXTO COLAPSÁVEL — Instituto Fábia Ornare
+     ======================================================= */
+  var aboutText = $('#aboutText');
+  var aboutToggle = $('#aboutToggle');
+  if (aboutText && aboutToggle) {
+    var aboutLabel = $('.about-toggle-label', aboutToggle);
+    var isExpanded = false;
+
+    var setExpanded = function (expanded) {
+      isExpanded = expanded;
+      if (expanded) {
+        aboutText.classList.remove('is-collapsed');
+        aboutText.style.maxHeight = aboutText.scrollHeight + 'px';
+        aboutLabel.textContent = 'Mostrar menos';
+      } else {
+        aboutText.classList.add('is-collapsed');
+        aboutText.style.maxHeight = '';
+        aboutLabel.textContent = 'Saiba +';
+      }
+      aboutToggle.setAttribute('aria-expanded', String(expanded));
+    };
+
+    aboutToggle.addEventListener('click', function () {
+      setExpanded(!isExpanded);
+    });
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      if (!isExpanded) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        aboutText.style.maxHeight = aboutText.scrollHeight + 'px';
+      }, 150);
+    }, { passive: true });
+  }
+
+  /* =======================================================
      HERO SLIDER
      ======================================================= */
   var slides = $$('#heroSlider .slide');

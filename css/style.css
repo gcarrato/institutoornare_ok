@@ -258,6 +258,30 @@ em{font-style:italic;color:var(--rose-gold)}
 .about-badge span{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft);line-height:1.4}
 .about-copy h2{margin-bottom:22px}
 .about-copy p{margin-bottom:16px;font-size:1.02rem}
+
+/* Instituto Fábia Ornare — texto colapsável (proporcional à foto) */
+.about-text{
+  --about-collapsed-h:640px;
+  position:relative;
+  overflow:hidden;
+  max-height:var(--about-collapsed-h);
+  transition:max-height .7s var(--ease);
+}
+.about-text.is-collapsed::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;
+  height:120px;
+  background:linear-gradient(180deg,rgba(250,247,242,0) 0%,var(--off-white) 80%);
+  pointer-events:none;
+}
+.about-toggle{
+  margin:2px 0 28px;
+  gap:9px;
+  padding:13px 28px;
+}
+.about-toggle-icon{transition:transform .4s var(--ease)}
+.about-toggle[aria-expanded="true"] .about-toggle-icon{transform:rotate(180deg)}
+
 .feature-list{margin:30px 0 36px;display:grid;gap:12px}
 .feature-list li{display:flex;align-items:center;gap:14px;font-size:.98rem;color:var(--text)}
 .feature-list .dot{width:8px;height:8px;border-radius:50%;background:var(--gradient-gold);flex-shrink:0}
@@ -570,6 +594,7 @@ em{font-style:italic;color:var(--rose-gold)}
   .grid-2{grid-template-columns:1fr;gap:56px}
   .about-badge{right:16px;bottom:-20px;padding:20px 22px}
   .about-badge strong{font-size:2.3rem}
+  .about-text{--about-collapsed-h:480px}
   .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
   .hero-dots{right:24px;bottom:84px}
   .carousel{padding:0}
@@ -596,6 +621,8 @@ em{font-style:italic;color:var(--rose-gold)}
   .to-top{right:20px;bottom:84px;width:40px;height:40px}
   .about-badge{right:10px;bottom:-16px;padding:15px 18px;gap:10px}
   .about-badge strong{font-size:1.9rem}
+  .about-text{--about-collapsed-h:360px}
+  .about-toggle{width:100%}
   .contact-card{padding:32px 24px}
   .lightbox-close{top:8px;right:8px;width:42px;height:42px}
 }
