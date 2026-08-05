@@ -13,8 +13,8 @@
      CONFIGURAÇÃO GERAL — edite apenas aqui
      ======================================================= */
   var CONFIG = {
-    instagramUser: 'drafabiaornare',
-    instagramUrl: 'https://www.instagram.com/drafabiaornare'
+    instagramUser: 'institutofabiaornare',
+    instagramUrl: 'https://www.instagram.com/institutofabiaornare'
   };
 
   /* Vídeos dos procedimentos (placeholders funcionais).
@@ -504,50 +504,36 @@
   })();
 
   /* =======================================================
-     INSTAGRAM FEED — @drafabiaornare
+     INSTAGRAM FEED — @institutofabiaornare
      -------------------------------------------------------
-     1) API oficial (Instagram Graph / Basic Display):
-        defina useApi = true e informe um token válido.
-     2) LightWidget / Elfsight: defina useEmbed = true e cole
-        o embed dentro de #igEmbed no index.html.
-     3) Sem integração: exibe o feed demonstrativo abaixo,
-        mantendo exatamente o layout final.
+     Fonte principal: widget Elfsight Instagram Feed (#igWidget),
+     conectado à conta oficial do Instagram — exibe as publicações
+     mais recentes e atualiza sozinho, sem precisar mexer no código
+     a cada novo post.
+
+     Se o widget não carregar (offline, bloqueador de anúncios, ou
+     o ID ainda não foi configurado em index.html), o site cai
+     automaticamente para o grid nativo abaixo, usando as imagens
+     locais em img/ig/ como retrato provisório do feed.
      ======================================================= */
   var INSTAGRAM = {
-    useApi: false,
-    useEmbed: false,
-    token: '',           // access token da Graph API
-    limit: 12,           // entre 9 e 12 publicações
-    endpoint: 'https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=12&access_token='
+    limit: 12,              // quantidade de publicações exibidas no fallback
+    widgetTimeout: 6000     // ms de espera pelo widget antes de cair no fallback
   };
 
-  /* Feed demonstrativo (placeholders) */
+  /* Imagens locais usadas apenas no fallback (sem legendas, conforme escopo) */
   var IG_DEMO = [
-    { img: 'img/ig/ig-1.jpg', caption: 'Harmonização facial com resultado natural ✨' },
-    { img: 'img/ig/ig-2.jpg', caption: 'Toxina botulínica: olhar leve e descansado' },
-    { img: 'img/ig/ig-3.jpg', caption: 'Preenchimento labial delicado 💋' },
-    { img: 'img/ig/ig-4.jpg', caption: 'Skinbooster: pele luminosa e hidratada' },
-    { img: 'img/ig/ig-5.jpg', caption: 'Bioestimuladores de colágeno' },
-    { img: 'img/ig/ig-6.jpg', caption: 'Fios de PDO — lifting sutil' },
-    { img: 'img/ig/ig-7.jpg', caption: 'Rinomodelação sem cirurgia' },
-    { img: 'img/ig/ig-8.jpg', caption: 'Lifting facial e contorno definido' },
-    { img: 'img/ig/ig-9.jpg', caption: 'Protocolo de rejuvenescimento' },
-    { img: 'img/ig/ig-10.jpg', caption: 'Bastidores do atendimento' },
-    { img: 'img/ig/ig-11.jpg', caption: 'Nosso espaço, pensado para você' },
-    { img: 'img/ig/ig-12.jpg', caption: 'Beleza natural em cada detalhe' }
+    { img: 'img/ig/ig-1.jpg' }, { img: 'img/ig/ig-2.jpg' }, { img: 'img/ig/ig-3.jpg' },
+    { img: 'img/ig/ig-4.jpg' }
   ];
 
   (function initInstagram() {
+    var widget = $('#igWidget');
     var grid = $('#igGrid');
-    var embed = $('#igEmbed');
-    if (!grid) return;
+    var fallbackMsg = $('#igFallbackMsg');
+    if (!widget || !grid) return;
 
-    if (INSTAGRAM.useEmbed) {
-      if (embed) embed.hidden = false;
-      grid.hidden = true;
-      grid.setAttribute('aria-busy', 'false');
-      return;
-    }
+    var widgetConfigured = widget.className.indexOf('SEU-WIDGET-ID') === -1;
 
     function tile(data) {
       var a = document.createElement('a');
@@ -555,42 +541,67 @@
       a.href = data.permalink || CONFIG.instagramUrl;
       a.target = '_blank';
       a.rel = 'noopener';
-      a.setAttribute('aria-label', 'Abrir publicação de @' + CONFIG.instagramUser + ' no Instagram');
-      a.innerHTML =
-        '<img src="' + data.img + '" alt="Publicação de @' + CONFIG.instagramUser + '" loading="lazy" />' +
-        '<span class="ig-overlay">' +
-          '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2m0 6.1a3.7 3.7 0 100 7.4 3.7 3.7 0 000-7.4z"/></svg>' +
-          '<span class="ig-caption">' + (data.caption || '') + '</span>' +
-        '</span>';
+      a.setAttribute('aria-label', 'Abrir publicação de @' + CONFIG.instagramUser + ' no Instagram (abre em nova aba)');
+      a.innerHTML = '<img src="' + data.img + '" alt="Publicação de @' + CONFIG.instagramUser + '" loading="lazy" />';
       return a;
     }
 
-    function render(items) {
+    function showFallback() {
+      widget.hidden = true;
       grid.innerHTML = '';
       var f = document.createDocumentFragment();
-      items.slice(0, INSTAGRAM.limit).forEach(function (it) { f.appendChild(tile(it)); });
+      IG_DEMO.slice(0, INSTAGRAM.limit).forEach(function (it) { f.appendChild(tile(it)); });
       grid.appendChild(f);
+      grid.hidden = false;
       grid.setAttribute('aria-busy', 'false');
     }
 
-    if (INSTAGRAM.useApi && INSTAGRAM.token) {
-      fetch(INSTAGRAM.endpoint + encodeURIComponent(INSTAGRAM.token))
-        .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-        .then(function (json) {
-          var items = (json.data || [])
-            .filter(function (p) { return p.media_type !== 'VIDEO' || p.thumbnail_url; })
-            .map(function (p) {
-              return {
-                img: p.media_type === 'VIDEO' ? p.thumbnail_url : p.media_url,
-                caption: (p.caption || '').slice(0, 90),
-                permalink: p.permalink
-              };
-            });
-          render(items.length ? items : IG_DEMO);
-        })
-        .catch(function () { render(IG_DEMO); });
-    } else {
-      render(IG_DEMO);
+    function showUnavailable() {
+      widget.hidden = true;
+      grid.hidden = true;
+      if (fallbackMsg) fallbackMsg.hidden = false;
+    }
+
+    if (!widgetConfigured) {
+      // Nenhum widget configurado ainda: usa o grid nativo diretamente.
+      showFallback();
+      return;
+    }
+
+    // Dá tempo do script do Elfsight carregar e renderizar o widget
+    // (iframe/canvas interno). Se nada aparecer no prazo, ativa o fallback.
+    var settled = false;
+    var timer = setTimeout(function () {
+      if (settled) return;
+      settled = true;
+      if (widget.children.length === 0) {
+        // Sem internet/script bloqueado: tenta o grid local antes da mensagem final.
+        showFallback();
+      }
+    }, INSTAGRAM.widgetTimeout);
+
+    var observer = new MutationObserver(function () {
+      if (settled) return;
+      if (widget.children.length > 0) {
+        settled = true;
+        clearTimeout(timer);
+        observer.disconnect();
+        grid.setAttribute('aria-busy', 'false');
+      }
+    });
+    observer.observe(widget, { childList: true });
+
+    // Se o próprio script da plataforma falhar ao carregar (rede indisponível),
+    // não há como o widget renderizar — cai direto no fallback.
+    var platformScript = document.querySelector('script[src*="elfsight.com/platform"]');
+    if (platformScript) {
+      platformScript.addEventListener('error', function () {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        observer.disconnect();
+        showFallback();
+      });
     }
   })();
 
